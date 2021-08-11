@@ -136,8 +136,38 @@ Using the `movies_db` database, write the correct SQL queries for each of these 
 	```
 14. The titles of all movies that don't feature any stars in our
     database.
+	```
+	   SELECT title
+	   FROM movies
+	   LEFT JOIN roles
+	   ON movies.id = roles.movie_id
+	   LEFT JOIN stars
+	   ON stars.id = roles.star_id
+	   WHERE stars.id IS NULL;
+	```
 
 15. The first and last names of all stars that don't appear in any movies in our database.
-
+	```
+	   SELECT first_name, last_name
+	   FROM stars
+	   LEFT JOIN roles
+	   ON roles.star_id = stars.id
+	   LEFT JOIN movies
+	   ON movies.id = roles.star_id
+	   WHERE movies.title IS NULL;
+	```
 16. The first names, last names, and titles corresponding to every
     role in the database, along with every movie title that doesn't have a star, and the first and last names of every star not in a movie.
+	```
+	   SELECT first_name, last_name, title
+	   FROM stars
+	   FULL OUTER JOIN roles
+	   ON roles.star_id = stars.id
+	   FULL OUTER JOIN movies
+	   ON movies.id = roles.movie_id;
+	```
+
+
+
+
+
